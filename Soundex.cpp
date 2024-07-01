@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <cctype>
 
-
+// Mapping of characters to their corresponding Soundex codes
 char getSoundexCode(char c) {
     static const std::unordered_map<char, char> soundexMap = {
         {'B', '1'}, {'F', '1'}, {'P', '1'}, {'V', '1'},
@@ -18,12 +18,13 @@ char getSoundexCode(char c) {
     return it != soundexMap.end() ? it->second : '0';
 }
 
-
+// Initialize the Soundex code with the first character of the name
 std::string initializeSoundex(const std::string& name) {
+    if (name.empty()) return "";
     return std::string(1, toupper(name[0]));
 }
 
-
+// Pad the Soundex code to ensure it is exactly 4 characters long
 std::string padSoundex(const std::string& soundex) {
     std::string result = soundex;
     while (result.length() < 4) {
@@ -32,11 +33,12 @@ std::string padSoundex(const std::string& soundex) {
     return result;
 }
 
-
+// Process the name to generate the Soundex code
 std::string processName(const std::string& name) {
     std::string soundex = initializeSoundex(name);
-    char prevCode = getSoundexCode(name[0]);
+    if (soundex.empty()) return "";
 
+    char prevCode = getSoundexCode(name[0]);
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
         char code = getSoundexCode(name[i]);
         if (code != '0' && code != prevCode) {
@@ -47,9 +49,8 @@ std::string processName(const std::string& name) {
     return soundex;
 }
 
-
+// Main function to generate the Soundex code for a given name
 std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "";
     std::string soundex = processName(name);
     return padSoundex(soundex);
 }
