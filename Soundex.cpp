@@ -46,6 +46,9 @@ std::string processName(const std::string& name) {
             soundex += code;
             prevCode = code;
         }
+        else if (code == '0') {
+            prevCode = '0'; // Reset prevCode for vowels and certain consonants
+        }
     }
 
     while (soundex.length() < 4) {
