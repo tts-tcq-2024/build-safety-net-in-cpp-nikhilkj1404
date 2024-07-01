@@ -29,10 +29,7 @@ std::string padSoundex(const std::string& soundex) {
     return result;
 }
 
-std::string generateSoundex(const std::string& name) {
-    if (name.empty()) return "";
-
-    std::string soundex = initializeSoundex(name);
+void processName(const std::string& name, std::string& soundex) {
     char prevCode = getSoundexCode(name[0]);
 
     for (size_t i = 1; i < name.length() && soundex.length() < 4; ++i) {
@@ -42,6 +39,12 @@ std::string generateSoundex(const std::string& name) {
             prevCode = code;
         }
     }
+}
 
+std::string generateSoundex(const std::string& name) {
+    if (name.empty()) return "";
+
+    std::string soundex = initializeSoundex(name);
+    processName(name, soundex);
     return padSoundex(soundex);
 }
