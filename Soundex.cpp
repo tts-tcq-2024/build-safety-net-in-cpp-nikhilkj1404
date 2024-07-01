@@ -1,40 +1,20 @@
 #include "Soundex.h"
-#include <unordered_map>
 #include <cctype>
 
-// Mapping of characters to their corresponding Soundex codes
 char getSoundexCode(char c) {
-    static const std::unordered_map<char, char> soundexMap = {
-        {'B', '1'}, {'F', '1'}, {'P', '1'}, {'V', '1'},
-        {'C', '2'}, {'G', '2'}, {'J', '2'}, {'K', '2'},
-        {'Q', '2'}, {'S', '2'}, {'X', '2'}, {'Z', '2'},
-        {'D', '3'}, {'T', '3'},
-        {'L', '4'},
-        {'M', '5'}, {'N', '5'},
-        {'R', '6'}
-    };
     c = toupper(c);
-    auto it = soundexMap.find(c);
-    return it != soundexMap.end() ? it->second : '0';
-}
-
-// Initialize the Soundex code with the first character of the name
-std::string initializeSoundex(const std::string& name) {
-    if (name.empty()) return "";
-    return std::string(1, toupper(name[0]));
-}
-
-// Pad the Soundex code to ensure it is exactly 4 characters long
-std::string padSoundex(const std::string& soundex) {
-    std::string result = soundex;
-    while (result.length() < 4) {
-        result += '0';
+    switch (c) {
+        case 'B': case 'F': case 'P': case 'V': return '1';
+        case 'C': case 'G': case 'J': case 'K': case 'Q': case 'S': case 'X': case 'Z': return '2';
+        case 'D': case 'T': return '3';
+        case 'L': return '4';
+        case 'M': case 'N': return '5';
+        case 'R': return '6';
+        default: return '0'; // For A, E, I, O, U, H, W, Y
     }
-    return result;
 }
 
-// Process the name to generate the Soundex code
-std::string processName(const std::string& name) {
+std::string generateSoundex(const std::string& name) {
     if (name.empty()) return "";
 
     std::string soundex(1, toupper(name[0]));
@@ -46,9 +26,6 @@ std::string processName(const std::string& name) {
             soundex += code;
             prevCode = code;
         }
-        else if (code == '0') {
-            prevCode = '0'; // Reset prevCode for vowels and certain consonants
-        }
     }
 
     while (soundex.length() < 4) {
@@ -56,10 +33,4 @@ std::string processName(const std::string& name) {
     }
 
     return soundex;
-}
-
-// Main function to generate the Soundex code for a given name
-std::string generateSoundex(const std::string& name) {
-    std::string soundex = processName(name);
-    return padSoundex(soundex);
 }
