@@ -27,6 +27,16 @@ char getFirstCharacterCode(const std::string& name) {
     return toupper(name[0]);
 }
 
+void appendSoundexCode(std::string& soundex, char code, char& prevCode) {
+    if (code != '0' && code != prevCode) {
+        soundex += code;
+        prevCode = code;
+    }
+}
+
+std::string processName(const std::string& name, char firstChar);
+void appendSoundexCode(std::string& soundex, char code, char& prevCode);
+
 std::string processName(const std::string& name, char firstChar) {
     std::string soundex;
     soundex += firstChar;
@@ -35,12 +45,9 @@ std::string processName(const std::string& name, char firstChar) {
     // Iterate over the remaining characters of the name
     for (size_t i = 1; i < name.length(); ++i) {
         char code = getSoundexCode(name[i]);
-        if (code != '0' && code != prevCode) {
-            soundex += code;
-            if (soundex.length() >= 4) {
-                break; // Stop once we have 4 characters in soundex
-            }
-            prevCode = code;
+        appendSoundexCode(soundex, code, prevCode);
+        if (soundex.length() >= 4) {
+            break; // Stop once we have 4 characters in soundex
         }
     }
 
