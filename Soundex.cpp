@@ -36,7 +36,10 @@ void appendSoundexCode(std::string& soundex, char code, char& prevCode) {
 
 std::string initializeSoundex(const std::string& name, char firstChar) {
     std::string soundex(1, toupper(name[0]));
-    soundex += getSoundexCode(name[1]);
+    char secondex = getSoundexCode(name[1]);
+    if (secondex != '0') {
+        soundex += secondex;
+    }
     return soundex;
 }
 
