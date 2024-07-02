@@ -49,14 +49,14 @@ TEST(SoundexTest, HandlesMixedCase) {
 
 // Test that handles names with hyphens or spaces
 TEST(SoundexTest, HandlesHyphensAndSpaces) {
-    EXPECT_EQ(generateSoundex("Ramesh-Suresh"), "R520");
-    EXPECT_EQ(generateSoundex("Ramesh Suresh"), "R520");
+    EXPECT_EQ(generateSoundex("Ramesh-Suresh"), "R526");
+    EXPECT_EQ(generateSoundex("Ramesh Suresh"), "R526");
 }
 
 // Test that handles names with non-alphabetic characters
 TEST(SoundexTest, HandlesNonAlphabeticCharacters) {
-    EXPECT_EQ(generateSoundex("T'Sharma"), "T650");
-    EXPECT_EQ(generateSoundex("T123Sharma"), "T650");
+    EXPECT_EQ(generateSoundex("T'Sharma"), "T265");
+    EXPECT_EQ(generateSoundex("T123Sharma"), "T265");
 }
 
 int main(int argc, char **argv) {
