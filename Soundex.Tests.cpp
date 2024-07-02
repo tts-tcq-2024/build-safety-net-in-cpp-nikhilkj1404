@@ -41,6 +41,17 @@ TEST(SoundexTest, HandlesLongNames) {
     EXPECT_EQ(generateSoundex("Nikhil"), "N240");
 }
 
+// Test that handles 'D' and 'T' characters
+TEST(SoundexTest, HandlesDandTcharacters) {
+    EXPECT_EQ(generateSoundex("Adarsh"), "A362");
+    EXPECT_EQ(generateSoundex("Stuart"), "S363");
+}
+
+// Test that handles empty name
+TEST(SoundexTest, HandlesEmptyName) {
+    EXPECT_EQ(generateSoundex(""), "");
+}
+
 // Test that handles mixed cases
 TEST(SoundexTest, HandlesMixedCase) {
     EXPECT_EQ(generateSoundex("KrishnaVamshi"), "K625");
@@ -57,9 +68,4 @@ TEST(SoundexTest, HandlesHyphensAndSpaces) {
 TEST(SoundexTest, HandlesNonAlphabeticCharacters) {
     EXPECT_EQ(generateSoundex("T'Sharma"), "T265");
     EXPECT_EQ(generateSoundex("T123Sharma"), "T265");
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
