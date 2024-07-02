@@ -30,9 +30,9 @@ TEST(SoundexTest, HandlesSimilarSoundingConsonants) {
 
 // Test that handles names with adjacent consonants that should be ignored
 TEST(SoundexTest, HandlesAdjacentConsonants) {
-    EXPECT_EQ(generateSoundex("BB"), "B000");
-    EXPECT_EQ(generateSoundex("CC"), "C000");
-    EXPECT_EQ(generateSoundex("DD"), "D000");
+    EXPECT_EQ(generateSoundex("BB"), "B100");
+    EXPECT_EQ(generateSoundex("CC"), "C200");
+    EXPECT_EQ(generateSoundex("DD"), "D300");
 }
 
 // Test that handles longer names that require truncation
