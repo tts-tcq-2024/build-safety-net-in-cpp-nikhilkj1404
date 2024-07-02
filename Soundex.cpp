@@ -38,12 +38,18 @@ std::string processName(const std::string& name, char firstChar);
 void appendSoundexCode(std::string& soundex, char code, char& prevCode);
 
 std::string processName(const std::string& name, char firstChar) {
-    std::string soundex;
-    soundex += firstChar;
+    std::string soundex(1, toupper(name[0]));
     char prevCode = getSoundexCode(firstChar);
+    
+    char nextcode = getSoundexCode(name[1]);
+
+    if(nextcode !='0') {
+        soundex += nextcode;
+        prevCode = nextcode;
+    }
 
     // Iterate over the remaining characters of the name
-    for (size_t i = 1; i < name.length(); ++i) {
+    for (size_t i = 2; i < name.length() && soundex.length() < 4; ++i) {
         char code = getSoundexCode(name[i]);
         appendSoundexCode(soundex, code, prevCode);
         if (soundex.length() >= 4) {
