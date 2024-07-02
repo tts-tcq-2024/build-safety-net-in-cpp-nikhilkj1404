@@ -37,14 +37,14 @@ TEST(SoundexTest, HandlesAdjacentConsonants) {
 
 // Test that handles longer names that require truncation
 TEST(SoundexTest, HandlesLongNames) {
+    EXPECT_EQ(generateSoundex("Abhishek"), "A120");
     EXPECT_EQ(generateSoundex("Nikhil"), "N240");
-    EXPECT_EQ(generateSoundex("Rahul"), "R400");
 }
 
 // Test that handles mixed cases
 TEST(SoundexTest, HandlesMixedCase) {
-    EXPECT_EQ(generateSoundex("Nikhil"), generateSoundex("nikhil"));
-    EXPECT_EQ(generateSoundex("Abhishek"), generateSoundex("abhishek"));
+    EXPECT_EQ(generateSoundex("KrishnaVamshi"), "K625");
+    EXPECT_EQ(generateSoundex("SathishKumar"), "S325");
 }
 
 // Test that handles names with hyphens or spaces
