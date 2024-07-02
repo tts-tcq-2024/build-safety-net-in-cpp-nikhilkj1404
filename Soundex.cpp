@@ -34,22 +34,21 @@ void appendSoundexCode(std::string& soundex, char code, char& prevCode) {
     }
 }
 
-std::string processName(const std::string& name, char firstChar);
-void appendSoundexCode(std::string& soundex, char code, char& prevCode);
+std::string initializeSoundex(const std::string& name, char firstChar) {
+    std::string soundex(1, toupper(name[0]));
+    soundex += getSoundexCode(name[1]);
+    return soundex;
+}
 
 std::string processName(const std::string& name, char firstChar) {
-    std::string soundex(1, toupper(name[0]));
-    char prevCode = getSoundexCode(name[1]);
-    soundex += prevCode;
+    std::string soundex = initializeSoundex(name, firstChar);
+    char prevCode = soundex[1];
 
 
     // Iterate over the remaining characters of the name
     for (size_t i = 2; i < name.length() && soundex.length() < 4; ++i) {
         char code = getSoundexCode(name[i]);
         appendSoundexCode(soundex, code, prevCode);
-        if (soundex.length() >= 4) {
-            break; // Stop once we have 4 characters in soundex
-        }
     }
 
     return soundex;
